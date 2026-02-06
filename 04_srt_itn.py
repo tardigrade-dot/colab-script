@@ -160,7 +160,7 @@ def process_directory_srt_itn(directory_path: str):
 
 if __name__ == "__main__":
     # 请根据您的实际环境修改此路径
-    target_directory = "/Volumes/sw/tts_result/zhipeiyudikang" 
+    target_directory = "/Volumes/sw/tts_result/fubaiyufanfu" 
     print(f"当前脚本处理目录：{target_directory}")
     
     # 批量处理目录

@@ -83,12 +83,14 @@ def combine_mp4(mp4_dir):
     # 预处理所有视频
     print(">>>> 正在统一视频格式")
     raw_files = get_file_list_sorted(mp4_dir)
-    normalized_files = []
 
-    for path in raw_files:
-        out = path.replace(".mp4", "_norm.mp4")
-        normalize_video(path, out)
-        normalized_files.append(out)
+    normalized_files = raw_files
+    # normalized_files = []
+
+    # for path in raw_files:
+    #     out = path.replace(".mp4", "_norm.mp4")
+    #     normalize_video(path, out)
+    #     normalized_files.append(out)
 
     # 分段拼接
     print(">>>> 分段拼接")
@@ -113,6 +115,6 @@ def combine_mp4(mp4_dir):
 
 
 if __name__ == "__main__":
-    INPUT_MP4_DIR = "/Volumes/sw/tts_result/zhipeiyudikang"
+    INPUT_MP4_DIR = "/Volumes/sw/tts_result/fubaiyufanfu"
     combine_mp4(INPUT_MP4_DIR)
     print("全部完成 🎉")
