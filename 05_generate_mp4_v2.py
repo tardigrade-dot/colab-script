@@ -211,6 +211,6 @@ if __name__ == "__main__":
 
     # generate_mp4("/Users/larry/github.com/tardigrade-dot/colab-script/data/renquandedixian-0_0.srt", 
     #                "/Users/larry/github.com/tardigrade-dot/colab-script/data/cover.jpeg")
-    generate_mp4("/Volumes/sw/tts_result/fubaiyufanfu", 
-                  "/Volumes/sw/tts_result/fubaiyufanfu-cover.jpg")
+    generate_mp4("/Volumes/sw/tts_result/sulianjianshi", 
+                  "/Volumes/sw/tts_result/sulianjianshi-cover.jpg")
     

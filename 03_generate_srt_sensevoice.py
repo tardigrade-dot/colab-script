@@ -543,7 +543,7 @@ elif env == 'local':
 else:
     raise Exception('env not support ')
 
-book_name = "fubaiyufanfu"
+book_name = "sulianjianshi"
 cfa.generate_srt_dir(f"/Volumes/sw/tts_result/{book_name}", over_write=True)
 cfa.check_srt_exsis(f"/Volumes/sw/tts_result/{book_name}")
 

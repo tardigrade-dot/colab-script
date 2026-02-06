@@ -242,7 +242,7 @@ if __name__ == "__main__":
     
     # === 示例 2：批量处理目录 ===
     process_directory(
-        input_dir="/Volumes/sw/tts_result/fubaiyufanfu",
+        input_dir="/Volumes/sw/tts_result/sulianjianshi",
         num_workers=4,  # 根据 CPU 调整
         overwrite=False  # 设为 True 可强制重处理
     )
