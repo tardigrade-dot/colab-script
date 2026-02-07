@@ -33,7 +33,8 @@ class CtcForcdAlign:
 
         self.combined_pattern = f"{chinese_pattern}|{english_pattern}"
         self.PUNCTUATION_CHARS = set(string.punctuation) | set(',.?，。！？；：、“”‘’《》【】（）')
-        self.PUNCT_REGEX = re.compile(r'[.,:;!?，。、；：？！“‘”’（）《》【】\s-]')
+        self.punctuation_regex = r'[.,:;!?，。、；：？！“‘”’·（）「」《》【】\s-]'
+        self.PUNCT_REGEX = re.compile(self.punctuation_regex)
     
     def is_punctuation(self, token):
         return token in self.PUNCTUATION_CHARS
@@ -85,54 +86,11 @@ class CtcForcdAlign:
         
     def map_asr_to_correct(self, asr_tokens, asr_timestamps, correct_tokens):
         
-        punctuation_regex = r'[.,:;!?，。、；：？！“‘”’（）《》【】\s-]'
-        clean_correct_tokens = re.sub(punctuation_regex, '', correct_tokens)
+        clean_correct_tokens = re.sub(self.punctuation_regex, '', correct_tokens)
         matcher_clean = difflib.SequenceMatcher(None, asr_tokens, clean_correct_tokens)
         clean_opcodes = matcher_clean.get_opcodes()
 
         return self.map_opcodes_to_raw(clean_opcodes, asr_timestamps, correct_tokens)
-
-    #old version
-    def map_asr_to_correct_oldversion(self, asr_tokens, asr_timestamps, correct_tokens):
-        """
-        将ASR token时间戳映射到正确文本 token
-        返回：
-            aligned_timestamps: 对齐后的正确文本时间戳列表
-            status: 每个 token 是否匹配
-        """
-        aligned_timestamps = []
-        status = []
-
-        # asr_tokens = "".join(asr_tokens)
-        # 使用 difflib 对齐 ASR 与正确文本
-        matcher = difflib.SequenceMatcher(self.is_punctuation, asr_tokens, correct_tokens)
-        for tag, i1, i2, j1, j2 in matcher.get_opcodes():
-            if tag == "equal":
-                # token 匹配 → 直接继承时间戳
-                for k in range(j2 - j1):
-                    aligned_timestamps.append(asr_timestamps[i1 + k])
-                    status.append(True)
-            elif tag == "replace":
-                # token 替换 → 尝试平均分配时间戳
-                # 可以选择标记为不匹配
-                for k in range(j2 - j1):
-                    if (i2 - i1) > 0:
-                        idx = i1 + k % (i2 - i1)
-                        aligned_timestamps.append(asr_timestamps[idx])
-                    else:
-                        # ASR 没有对应 token → 填充 None
-                        aligned_timestamps.append((None, None))
-                    status.append(False)
-            elif tag == "insert":
-                # 正确文本中新增 token → 无对应 ASR token
-                for _ in range(j2 - j1):
-                    aligned_timestamps.append((None, None))
-                    status.append(False)
-            elif tag == "delete":
-                # ASR 中多余 token → 忽略
-                continue
-
-        return aligned_timestamps, status
 
     def is_valid_time(self, t):
         return isinstance(t, (int, float)) and t >= 0
@@ -263,7 +221,7 @@ class CtcForcdAlign:
             )
         output = res[0]
         
-        target_txt = re.sub(self.combined_pattern, "", target_txt)
+        # target_txt = re.sub(self.combined_pattern, "", target_txt)
         target_txt = target_txt.replace("\n", " ")
         target_txt = self.normalizer.normalize(target_txt)
         
@@ -357,7 +315,7 @@ class CtcForcdAlign:
         target_txt = "".join(target)
         target_txt = self.normalizer.normalize(target_txt)
 
-        target_txt = re.sub(self.combined_pattern, "", target_txt)
+        # target_txt = re.sub(self.combined_pattern, "", target_txt)
         target_txt = target_txt.replace("\n", "")
 
         target_tokens = self.model.kwargs['tokenizer'].text2tokens(target_txt)
@@ -531,7 +489,7 @@ if env == "colab":
         device = "cuda"
     )
 
-    book_name = "tianchaoyaoyuan2"
+    book_name = "sulianjianshi"
     cfa.generate_srt_dir(f"/content/drive/MyDrive/{book_name}")
 elif env == 'local':
     cfa = CtcForcdAlign(
@@ -548,7 +506,7 @@ cfa.generate_srt_dir(f"/Volumes/sw/tts_result/{book_name}", over_write=True)
 cfa.check_srt_exsis(f"/Volumes/sw/tts_result/{book_name}")
 
 # cfa.generate_srt_dir('/Volumes/sw/MyDrive/zhengzhi1/output', r"zhengzhi1-(\d+)_(\d+)\.wav", True)
-# cfa.generate_srt_file("/Users/larry/github.com/tardigrade-dot/SenseVoice/data-forcedaligner/data.wav", True)
+# cfa.generate_srt_file("/Volumes/sw/tts_result/sulianjianshi/sulianjianshi-4_2.wav", True)
 
 # wav_dir = "/Volumes/sw/datasets_prepare/zhongdong"
 # for wav_file in os.listdir(wav_dir):
