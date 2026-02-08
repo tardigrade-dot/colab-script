@@ -117,22 +117,6 @@ def run_ffmpeg(ass_file, wav_file, output_mp4, cover_img):
         f"[0:v][img]overlay=180:(H-h)/2,subtitles={ass_file}:fontsdir='.'"
     )
 
-    # v1
-    # cmd = [
-    #     'ffmpeg', '-y',
-    #     '-f', 'lavfi', '-i', f'color=c={BG_COLOR}:s=1920x1080', # 输入0: 米色背景
-    #     '-i', cover_img,                                        # 输入1: 左侧图片
-    #     '-i', wav_file,                                        # 输入2: 音频
-    #     '-filter_complex', filter_complex,
-    #     '-c:v', 'libx264',
-    #     '-preset', 'fast',
-    #     '-crf', '18',
-    #     '-c:a', 'aac',
-    #     '-b:a', '192k',
-    #     '-shortest',
-    #     output_mp4
-    # ]
-
     # v2 将后续的合并前的norm参数转移到生成的部分.
     cmd = [
         'ffmpeg', '-y',
@@ -154,13 +138,25 @@ def run_ffmpeg(ass_file, wav_file, output_mp4, cover_img):
         '-shortest',
         output_mp4
     ]
+
+    # v1
+    # cmd = [
+    #     'ffmpeg', '-y',
+    #     '-f', 'lavfi', '-i', f'color=c={BG_COLOR}:s=1920x1080', # 输入0: 米色背景
+    #     '-i', cover_img,                                        # 输入1: 左侧图片
+    #     '-i', wav_file,                                        # 输入2: 音频
+    #     '-filter_complex', filter_complex,
+    #     '-c:v', 'libx264',
+    #     '-preset', 'fast',
+    #     '-crf', '18',
+    #     '-c:a', 'aac',
+    #     '-b:a', '192k',
+    #     '-shortest',
+    #     output_mp4
+    # ]
     
     print(f"{wav_file} 正在开始合成视频，请稍候...")
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    if result.returncode == 0:
-        print(f"成功！输出文件：{output_mp4}")
-    else:
-        print("FFmpeg 出错：", result.stderr)
+    subprocess.run(cmd)
 
 def process_single(srt_file, cover_img):
 
@@ -172,6 +168,9 @@ def process_single(srt_file, cover_img):
     if not os.path.exists(FONT_FILE):
         print(f"错误：找不到字体文件 {FONT_FILE}，请确保它在脚本同目录下。")
     else:
+        if os.path.exists(output_mp4):
+            print(f'{output_mp4} file exists continue to next...')
+            return
         generate_ass(srt_file, ass_file)
         run_ffmpeg(ass_file, wav_file, output_mp4, cover_img)
 

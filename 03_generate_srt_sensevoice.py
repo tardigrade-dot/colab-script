@@ -221,7 +221,7 @@ class CtcForcdAlign:
             )
         output = res[0]
         
-        # target_txt = re.sub(self.combined_pattern, "", target_txt)
+        target_txt = re.sub(self.combined_pattern, "", target_txt)
         target_txt = target_txt.replace("\n", " ")
         target_txt = self.normalizer.normalize(target_txt)
         
@@ -315,7 +315,7 @@ class CtcForcdAlign:
         target_txt = "".join(target)
         target_txt = self.normalizer.normalize(target_txt)
 
-        # target_txt = re.sub(self.combined_pattern, "", target_txt)
+        target_txt = re.sub(self.combined_pattern, "", target_txt)
         target_txt = target_txt.replace("\n", "")
 
         target_tokens = self.model.kwargs['tokenizer'].text2tokens(target_txt)
@@ -502,11 +502,11 @@ else:
     raise Exception('env not support ')
 
 book_name = "sulianjianshi"
-cfa.generate_srt_dir(f"/Volumes/sw/tts_result/{book_name}", over_write=True)
+cfa.generate_srt_dir(f"/Volumes/sw/tts_result/{book_name}", over_write=False)
 cfa.check_srt_exsis(f"/Volumes/sw/tts_result/{book_name}")
 
-# cfa.generate_srt_dir('/Volumes/sw/MyDrive/zhengzhi1/output', r"zhengzhi1-(\d+)_(\d+)\.wav", True)
 # cfa.generate_srt_file("/Volumes/sw/tts_result/sulianjianshi/sulianjianshi-4_2.wav", True)
+# cfa.generate_srt_dir('/Volumes/sw/MyDrive/zhengzhi1/output', r"zhengzhi1-(\d+)_(\d+)\.wav", True)
 
 # wav_dir = "/Volumes/sw/datasets_prepare/zhongdong"
 # for wav_file in os.listdir(wav_dir):
