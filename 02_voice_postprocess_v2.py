@@ -31,8 +31,8 @@ DEFAULT_PARAMS = {
     "eq_mid_gain": 0.8,        # 适度提升清晰度
     "eq_high_freq": 6000,      # 提升更高频段
     "eq_high_gain": 0.5,
-    "silence_threshold": "-50dB",
-    "silence_leave": 0.6,      # 有声书 0.75s 略长，0.5s 更自然
+    "silence_threshold": "-80dB",
+    "silence_leave": 0.75,
     "loudness_target": -16.0,
     "sample_rate": 24000,
 }
@@ -242,7 +242,7 @@ if __name__ == "__main__":
     
     # === 示例 2：批量处理目录 ===
     process_directory(
-        input_dir="/Volumes/sw/tts_result/sulianjianshi",
+        input_dir="/Volumes/sw/tts_result/wangquanyudikangquan",
         num_workers=4,  # 根据 CPU 调整
         overwrite=False  # 设为 True 可强制重处理
     )

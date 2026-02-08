@@ -6,6 +6,7 @@ from typing import Union, List
 from wetext import Normalizer
 
 # 初始化 Normalizer 实例（在全局或函数内部一次性完成）
+#### 效果有限. 有些转换结果不好, 比如几十年, 转换为了几10年
 try:
     NORMALIZER = Normalizer(
         lang="zh",

@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 # ================= 配置区 =================
 
-FONT_FILE = "./data/pingfang-sc-regular.ttf"         # 放在脚本同目录下的字体文件名
+FONT_FILE = "./pingfang-sc-regular.ttf"         # 放在脚本同目录下的字体文件名
 FONT_NAME = "萍方-简"
 
 MAX_CHARS_PER_LINE = 20        # 每行最多字符，超过自动换行
