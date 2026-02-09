@@ -1,4 +1,4 @@
-# sv311 安装SenseVoice环境: https://github.com/FunAudioLLM/SenseVoice
+# 安装SenseVoice环境: https://github.com/FunAudioLLM/SenseVoice
 
 # pip install -r https://raw.githubusercontent.com/FunAudioLLM/SenseVoice/refs/heads/main/requirements.txt
 # pip install wetext
@@ -501,7 +501,7 @@ elif env == 'local':
 else:
     raise Exception('env not support ')
 
-book_name = "wangquanyudikangquan"
+book_name = "jiquanxiaderichang"
 cfa.generate_srt_dir(f"/Volumes/sw/tts_result/{book_name}", over_write=False)
 cfa.check_srt_exsis(f"/Volumes/sw/tts_result/{book_name}")
 
