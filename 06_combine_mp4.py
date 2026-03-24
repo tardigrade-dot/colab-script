@@ -1,3 +1,4 @@
+#!/Volumes/sw/conda_envs/sensevoice/bin/python
 import os
 import re
 import subprocess
@@ -115,6 +116,6 @@ def combine_mp4(mp4_dir):
 
 
 if __name__ == "__main__":
-    INPUT_MP4_DIR = "/Volumes/sw/tts_result/wangquanyudikangquan"
+    INPUT_MP4_DIR = "/Volumes/sw/tts_result/gcsjdls"
     combine_mp4(INPUT_MP4_DIR)
     print("全部完成 🎉")

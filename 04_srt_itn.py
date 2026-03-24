@@ -1,3 +1,4 @@
+#!/Volumes/sw/conda_envs/sensevoice/bin/python
 import os
 import re
 from pathlib import Path

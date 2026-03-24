@@ -1,3 +1,4 @@
+#!/Volumes/sw/conda_envs/sensevoice/bin/python
 # 安装SenseVoice环境: https://github.com/FunAudioLLM/SenseVoice
 
 # pip install -r https://raw.githubusercontent.com/FunAudioLLM/SenseVoice/refs/heads/main/requirements.txt
@@ -220,7 +221,7 @@ class CtcForcdAlign:
                 output_timestamp=True,
             )
         output = res[0]
-        
+        print("output is : ", "".join(output["words"]))
         target_txt = re.sub(self.combined_pattern, "", target_txt)
         target_txt = target_txt.replace("\n", " ")
         target_txt = self.normalizer.normalize(target_txt)

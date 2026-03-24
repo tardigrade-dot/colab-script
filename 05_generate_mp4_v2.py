@@ -1,3 +1,4 @@
+#!/Volumes/sw/conda_envs/sensevoice/bin/python
 from pathlib import Path
 import re
 import subprocess
@@ -158,7 +159,7 @@ def run_ffmpeg(ass_file, wav_file, output_mp4, cover_img):
     print(f"{wav_file} 正在开始合成视频，请稍候...")
     subprocess.run(cmd)
 
-def process_single(srt_file, cover_img):
+def process_single(srt_file, cover_img, over_write=False):
 
     srt_path = Path(srt_file)
     ass_file = str(srt_path.with_suffix(".ass"))
@@ -168,7 +169,7 @@ def process_single(srt_file, cover_img):
     if not os.path.exists(FONT_FILE):
         print(f"错误：找不到字体文件 {FONT_FILE}，请确保它在脚本同目录下。")
     else:
-        if os.path.exists(output_mp4):
+        if not over_write and os.path.exists(output_mp4):
             print(f'{output_mp4} file exists continue to next...')
             return
         generate_ass(srt_file, ass_file)
@@ -196,20 +197,20 @@ def get_file_list_sorted(wav_src_dir, wav_regex=None):
     sorted_paths = [os.path.join(wav_src_dir, f) for f in sorted_files]
     return sorted_paths
 
-def generate_mp4(process_dir_or_file, cover_img):
+def generate_mp4(process_dir_or_file, cover_img, over_write=False):
 
     if os.path.isdir(process_dir_or_file):
         srt_regex = r'.*-(\d+)_(\d+).srt$'
         file_paths = list(get_file_list_sorted(process_dir_or_file, srt_regex))
         for srt_file in tqdm(file_paths):
-            process_single(srt_file, cover_img)
+            process_single(srt_file, cover_img, over_write)
     else:
-        process_single(process_dir_or_file, cover_img)
+        process_single(process_dir_or_file, cover_img, over_write)
 
 if __name__ == "__main__":
 
     # generate_mp4("/Users/larry/github.com/tardigrade-dot/colab-script/data/renquandedixian-0_0.srt", 
     #                "/Users/larry/github.com/tardigrade-dot/colab-script/data/cover.jpeg")
-    generate_mp4("/Volumes/sw/tts_result/wangquanyudikangquan", 
-                  "/Volumes/sw/tts_result/wangquanyudikangquan-cover.jpg")
+    generate_mp4("/Volumes/sw/tts_result/gcsjdls", 
+                  "/Volumes/sw/tts_result/gcsjdls.png", over_write=True)
     
