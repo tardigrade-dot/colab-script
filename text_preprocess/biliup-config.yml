@@ -1,0 +1,13 @@
+lines: AUTO
+limit: 3
+streamers:
+  "/content/drive/MyDrive/zzqlyzgsh2/*.mp4":
+    copyright: 1 ### 1为自制，2为转载
+    tid: 228 # 投稿分区
+    # cover: "" # 视频封面
+    title: "专制权力与中国社会(有声书)"
+    desc: "https://book.douban.com/subject/1326771/"
+    tags:
+      - "有声书"
+    dtime: ~
+    open_subtitle: false
