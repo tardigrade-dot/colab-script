@@ -10,4 +10,6 @@ streamers:
     tags:
       - "有声书"
     dtime: ~
+    extra_fields: '{"watermark": {"state": 0}}' #关闭水印
+    # extra-fields '{"is_only_self":1}' #仅自己可见
     open_subtitle: false
