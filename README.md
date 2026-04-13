@@ -1,9 +1,25 @@
 # colab-script
 
-- 01, 语音生成, 语音重新生成(Vibevoice)
-- 02, 语音增强(V2)
-- 03, 生成SRT(Sensevoice)
-- 04, SRT逆规范化(Option, wetext)
-- 05, 生成视频(V2 ffmpeg)
+- 01, 语音生成, 语音重新生成
+  - Vibevoice 长音频效果最好, 但是语音波动较大. 5000字中文30min, 即有长音频, 质量还OK
+  - qwen3tts 800字效果可接受. 但是存在语音逐渐加速的问题
+  - VoxCPM2 TODO
+- 02, 语音增强
+  - 原本是应对vibevoice合成后, 音频不一致的问题, 用来调整响度、去掉背景杂音. 如果使用其他模型或者非Vibevoice 1.5B, 可以不使用
+- 03, 生成SRT
+  - qwen3asr TODO
+  - Sensevoice和FunASR, 后者是前者的继承者.
+  - 采用的是asr后对齐方式, 影响对齐效果的因素有: 语音质量、ASR准度、匹配计算的容忍. 存在中间地带
+  - 在生成SRT失败时, 有可能需要重新运行01重新合成音频(比如vibevoice、qwen3tts合成长音频时, 部分音频纯粹是杂音)
+- 04, SRT逆规范化, 文字转换为数字, 主要原因是TTS最好输入文字型数字, SRT制作完成(对齐需要中文 - sensevoice返回的是中文)(Option)
+  - 可选, 目前没有最佳工具, 追求效果可以使用模型处理
+- 05, 生成视频
+  - moviePy 速度慢
+  - [v2] FFmpeg 速度快, 但是特效比较费劲
+  - [v3] Remotion 效果好, 推荐, 还可以用来制作其他视频效果更好的视频
 - 06, 拼接为长视频(ffmpeg)
+  - 如果05合成的视频已经是比较长的(3hours、5hours、9hours), 那么就不需要这一步
+  - 音频在02_voice_postprocess_v3 已经合成为长音频了
 - 07, 应对审查的视频裁剪
+- 08, 上传音频
+  - biliup
